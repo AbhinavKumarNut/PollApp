@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -41,6 +42,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error reading YAML file: %s\n", err)
 	}
+
+	fmt.Println("Yaml")
 	err = yaml.Unmarshal(yFile, &cfg)
 	if err != nil {
 		log.Fatalf("Error unmarshaling YAML: %s\n", err)
@@ -51,6 +54,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to open connection: %v", err)
 	}
+	fmt.Println("Postgres")
 	defer client.Close()
 	if err := client.Schema.Create(context.Background()); err != nil {
 		log.Fatalf("failed creating schema resources: %v", err)
